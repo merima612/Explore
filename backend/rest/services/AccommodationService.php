@@ -1,19 +1,15 @@
 <?php
+require_once 'BaseService.php';
 require_once __DIR__ . '/../dao/AccommodationDao.php';
 
-class AccommodationService {
-    private $accommodationDao;
-
+class AccommodationService extends BaseService {
     public function __construct() {
-        $this->accommodationDao = new AccommodationDao();
+        $dao = new AccommodationDao();
+        parent::__construct($dao);
     }
 
-    public function addAccommodation($destination_id, $name, $type, $price_per_night, $description, $image_url) {
-        return $this->accommodationDao->createAccommodation($destination_id, $name, $type, $price_per_night, $description, $image_url);
-    }
-
-    public function getAccommodationsByDestination($destination_id) {
-        return $this->accommodationDao->getByDestination($destination_id);
+    public function checkAvailability($accommodation_id, $dates) {
+        return $this->dao->checkAvailability($accommodation_id, $dates);
     }
 }
 ?>

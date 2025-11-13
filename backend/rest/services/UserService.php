@@ -1,24 +1,19 @@
 <?php
+require_once 'BaseService.php';
 require_once __DIR__ . '/../dao/UserDao.php';
 
-class UserService {
-    private $userDao;
-
+class UserService extends BaseService {
     public function __construct() {
-        $this->userDao = new UserDao();
+        $dao = new UserDao();
+        parent::__construct($dao);
     }
 
-    public function registerUser($name, $email, $password) {
-        $hashedPassword = password_hash($password, PASSWORD_BCRYPT);
-        return $this->userDao->createUser($name, $email, $hashedPassword, date('Y-m-d'));
-    }
-
-    public function loginUser($email, $password) {
-        $user = $this->userDao->getUserByEmail($email);
-        if ($user && password_verify($password, $user['password'])) {
-            return $user;
+    public function registerUser($data) {
+        $existing = $this->dao->getByEmail($data['email']);
+        if ($existing) {
+            throw new Exception('Email is already registered.');
         }
-        return null;
+        return $this->create($data);
     }
 }
 ?>

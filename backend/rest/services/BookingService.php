@@ -1,19 +1,18 @@
 <?php
+require_once 'BaseService.php';
 require_once __DIR__ . '/../dao/BookingDao.php';
 
-class BookingService {
-    private $bookingDao;
-
+class BookingService extends BaseService {
     public function __construct() {
-        $this->bookingDao = new BookingDao();
+        $dao = new BookingDao();
+        parent::__construct($dao);
     }
 
-    public function bookAccommodation($user_id, $accommodation_id, $check_in, $check_out, $total_price) {
-        return $this->bookingDao->createBooking($user_id, $accommodation_id, $check_in, $check_out, $total_price);
-    }
-
-    public function getUserBookings($user_id) {
-        return $this->bookingDao->getBookingsByUser($user_id);
+    public function createBooking($data) {
+        if (strtotime($data['start_date']) >= strtotime($data['end_date'])) {
+            throw new Exception('End date must be after start date.');
+        }
+        return $this->create($data);
     }
 }
 ?>
