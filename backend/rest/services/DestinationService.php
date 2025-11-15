@@ -1,19 +1,32 @@
 <?php
+require_once 'BaseService.php';
 require_once __DIR__ . '/../dao/DestinationDao.php';
 
-class DestinationService {
-    private $destinationDao;
-
+class DestinationService extends BaseService {
     public function __construct() {
-        $this->destinationDao = new DestinationDao();
-    }
-
-    public function addDestination($name, $description, $location, $image_url) {
-        return $this->destinationDao->createDestination($name, $description, $location, $image_url);
+        $dao = new DestinationDao();
+        parent::__construct($dao);
     }
 
     public function getAllDestinations() {
-        return $this->destinationDao->getAll();
+        return $this->dao->getAllDestinations();
     }
+
+    public function getDestinationById($id) {
+        return $this->dao->getDestinationById($id);
+    }
+
+    public function createDestination($data) {
+        return $this->dao->create($data);
+    }
+
+    public function updateDestination($id, $data) {
+        return $this->dao->updateDestination($id, $data);
+    }
+
+    public function deleteDestination($id) {
+        return $this->dao->deleteDestination($id);
+    }
+
 }
 ?>
