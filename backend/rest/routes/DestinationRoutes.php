@@ -40,7 +40,6 @@ Flight::route('GET /destination', function() {
 Flight::route('GET /destination/@id', function($id) {
     Flight::json(Flight::destinationService()->getById($id));
 });
-
 /**
  * @OA\Post(
  *     path="/destination",
@@ -49,11 +48,11 @@ Flight::route('GET /destination/@id', function($id) {
  *     @OA\RequestBody(
  *         required=true,
  *         @OA\JsonContent(
- *             required={"name", "country", "region"},
- *             @OA\Property(property="name", type="string", example="Dubrovnik"),
- *             @OA\Property(property="country", type="string", example="Croatia"),
- *             @OA\Property(property="region", type="string", example="Dalmatia"),
- *             @OA\Property(property="description", type="string", example="Historic coastal city")
+ *             required={"name", "location"},
+ *             @OA\Property(property="name", type="string", example="Prokoško Lake"),
+ *             @OA\Property(property="description", type="string", example="Beautiful mountain lake located on Vranica mountain"),
+ *             @OA\Property(property="location", type="string", example="Bosnia and Herzegovina"),
+ *             @OA\Property(property="image_url", type="string", example="prokosko_lake.jpg")
  *         )
  *     ),
  *     @OA\Response(
@@ -87,9 +86,9 @@ Flight::route('POST /destination', function() {
  *         required=true,
  *         @OA\JsonContent(
  *             @OA\Property(property="name", type="string", example="Updated Destination"),
- *             @OA\Property(property="country", type="string", example="Bosnia and Herzegovina"),
- *             @OA\Property(property="region", type="string", example="Herzegovina"),
- *             @OA\Property(property="description", type="string", example="Updated description text")
+ *             @OA\Property(property="description", type="string", example="Updated description text""),
+ *             @OA\Property(property="location", type="string", example="Herzegovina"),
+ *             @OA\Property(property="image_url", type="string", example="prokosko_lake.jpg")
  *         )
  *     ),
  *     @OA\Response(
@@ -119,7 +118,7 @@ Flight::route('PUT /destination/@id', function($id) {
  *         required=true,
  *         @OA\JsonContent(
  *             @OA\Property(property="name", type="string", example="Partially updated name"),
- *             @OA\Property(property="region", type="string", example="Central Dalmatia")
+ *             @OA\Property(property="location", type="string", example="Bosnia and Herzegovina")
  *         )
  *     ),
  *     @OA\Response(

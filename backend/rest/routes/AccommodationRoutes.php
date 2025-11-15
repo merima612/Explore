@@ -45,12 +45,13 @@ Flight::route('GET /accommodation/@id', function($id) {
  *     @OA\RequestBody(
  *         required=true,
  *         @OA\JsonContent(
- *             required={"name", "location", "price"},
- *             @OA\Property(property="name", type="string", example="Hotel Lux"),
- *             @OA\Property(property="location", type="string", example="Sarajevo"),
- *             @OA\Property(property="price", type="number", format="float", example=120.5),
- *             @OA\Property(property="capacity", type="integer", example=3),
- *             @OA\Property(property="description", type="string", example="Modern hotel with pool and breakfast.")
+ *             required={"name", "type", "price_per_night"},
+ *             @OA\Property(property="destination_id", type="number", format="integer", example="2"),
+ *             @OA\Property(property="name", type="string", example="Mostar"),
+ *             @OA\Property(property="type", type="string", example="Hotel"),
+ *             @OA\Property(property="price_per_night", type="number", format="float", example=70),
+ *             @OA\Property(property="description", type="string", example="Modern hotel with pool and breakfast."),
+ *             @OA\Property(property="image_url", type="string", example="mostar.jpg")
  *         )
  *     ),
  *     @OA\Response(
@@ -79,11 +80,12 @@ Flight::route('POST /accommodation', function() {
  *     @OA\RequestBody(
  *         required=true,
  *         @OA\JsonContent(
- *             @OA\Property(property="name", type="string", example="Updated Hotel"),
- *             @OA\Property(property="location", type="string", example="Mostar"),
- *             @OA\Property(property="price", type="number", format="float", example=99.99),
- *             @OA\Property(property="capacity", type="integer", example=4),
- *             @OA\Property(property="description", type="string", example="Recently renovated rooms.")
+ *             @OA\Property(property="destination_id", type="number", format="integer", example="2"),
+ *             @OA\Property(property="name", type="string", example="Updated"),
+ *             @OA\Property(property="type", type="string", example="Hotel"),
+ *             @OA\Property(property="price_per_night", type="number", format="float", example=70),
+ *             @OA\Property(property="description", type="string", example="Update"),
+ *             @OA\Property(property="image_url", type="string", example="updated.jpg")
  *         )
  *     ),
  *     @OA\Response(
@@ -112,8 +114,8 @@ Flight::route('PUT /accommodation/@id', function($id) {
  *     @OA\RequestBody(
  *         required=true,
  *         @OA\JsonContent(
- *             @OA\Property(property="price", type="number", format="float", example=89.99),
- *             @OA\Property(property="capacity", type="integer", example=2)
+ *             @OA\Property(property="price_per_night", type="number", format="float", example=89.99),
+ *             @OA\Property(property="type", type="string", example="Hotel")
  *         )
  *     ),
  *     @OA\Response(

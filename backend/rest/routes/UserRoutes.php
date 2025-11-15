@@ -38,7 +38,7 @@ Flight::route('GET /user/@id', function($id){
  * )
  */
 Flight::route('GET /user', function(){
-   Flight::json(Flight::userService()->getAll());
+   Flight::json(Flight::userService()->getAllUsers());
 });
 
 /**
@@ -50,10 +50,10 @@ Flight::route('GET /user', function(){
  *         required=true,
  *         @OA\JsonContent(
  *             required={"name", "email", "password"},
- *             @OA\Property(property="name", type="string", example="Amira H."),
- *             @OA\Property(property="email", type="string", example="amira@example.com"),
+ *             @OA\Property(property="name", type="string", example="Merima Durak"),
+ *             @OA\Property(property="email", type="string", example="merima@example.com"),
  *             @OA\Property(property="password", type="string", example="strongPassword123"),
- *             @OA\Property(property="phone", type="string", example="+38761123456")
+ *             @OA\Property(property="data_joined", type="string", format="date", example="2025-07-07")
  *         )
  *     ),
  *     @OA\Response(
@@ -92,7 +92,7 @@ Flight::route('POST /user', function(){
  *         @OA\JsonContent(
  *             @OA\Property(property="name", type="string", example="Updated Name"),
  *             @OA\Property(property="email", type="string", example="updated_email@example.com"),
- *             @OA\Property(property="phone", type="string", example="+38762111222")
+ *             @OA\Property(property="data_joined", type="string", format="date", example="2025-07-07")
  *         )
  *     ),
  *     @OA\Response(
@@ -122,7 +122,7 @@ Flight::route('PUT /user/@id', function($id){
  *         required=true,
  *         @OA\JsonContent(
  *             @OA\Property(property="email", type="string", example="newemail@example.com"),
- *             @OA\Property(property="phone", type="string", example="+38762123456")
+ *             @OA\Property(property="data_joined", type="string", format="date", example="2025-07-07")
  *         )
  *     ),
  *     @OA\Response(

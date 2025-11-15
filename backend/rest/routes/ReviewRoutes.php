@@ -49,11 +49,12 @@ Flight::route('GET /review/@id', function($id) {
  *     @OA\RequestBody(
  *         required=true,
  *         @OA\JsonContent(
- *             required={"user_id", "accommodation_id", "rating", "comment"},
- *             @OA\Property(property="user_id", type="integer", example=2),
- *             @OA\Property(property="accommodation_id", type="integer", example=5),
+ *             required={"user_id", "destination_id", "rating"},
+ *             @OA\Property(property="user_id", type="integer", example=1),
+ *             @OA\Property(property="destination_id", type="integer", example=1),
  *             @OA\Property(property="rating", type="integer", example=5, description="Rating from 1 to 5"),
- *             @OA\Property(property="comment", type="string", example="Amazing place, friendly staff, and great view!")
+ *             @OA\Property(property="comment", type="string", example="Amazing place, friendly staff, and great view!"),
+ *             @OA\Property(property="date_posted", type="string", format="date", example="2024-01-15")
  *         )
  *     ),
  *     @OA\Response(
