@@ -22,5 +22,8 @@ class BaseService {
    public function delete($id) {
        return $this->dao->delete($id);
    }
+   public function add($entity) {
+        return $this->dao->add($entity); 
+    }
 }
 ?>

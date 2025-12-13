@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="utf-8" />
+    <title>Register - Explore Bosnia</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous" />
+    <link href="https://cdn.jsdelivr.net/npm/toastr@2.1.4/build/toastr.min.css" rel="stylesheet" />
+    <link href="assets/css/login.css" rel="stylesheet" />
+</head>
+<body>
+    <div class="login-card">
+        <div class="login-header">
+            <h2>Create Account</h2>
+            <div class="divider"></div>
+            <p>Join our community of travelers</p>
+        </div>
+        
+        <form id="register-form">
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <div class="form-floating mb-4">
+                        <input type="text" class="form-control" id="firstName" name="firstName" placeholder="First Name" required />
+                        <label for="firstName">First Name</label>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-floating mb-4">
+                        <input type="text" class="form-control" id="lastName" name="lastName" placeholder="Last Name" required />
+                        <label for="lastName">Last Name</label>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="form-floating mb-4">
+                <input type="email" class="form-control" id="email" name="email" placeholder="name@example.com" required />
+                <label for="email">Email address</label>
+            </div>
+            
+            <div class="form-floating mb-4">
+                <input type="tel" class="form-control" id="phone" name="phone" placeholder="Phone Number" />
+                <label for="phone">Phone Number (optional)</label>
+            </div>
+            
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <div class="form-floating mb-4">
+                        <input type="password" class="form-control" id="password" name="password" placeholder="Password" required />
+                        <label for="password">Password</label>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-floating mb-4">
+                        <input type="password" class="form-control" id="confirmPassword" name="confirmPassword" placeholder="Confirm Password" required />
+                        <label for="confirmPassword">Confirm Password</label>
+                    </div>
+                </div>
+            </div>
+            <div class="d-grid mb-3">
+                <button type="submit" class="btn btn-dark btn-lg">Register</button>
+            </div>
+            
+            <div class="text-center mt-4">
+                <p class="mb-0">Already have an account? 
+                    <a href="#login" class="register-link spa-link" data-page="login">Login here</a>
+                </p>
+            </div>
+        </form>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.17.0/jquery.validate.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/toastr@2.1.4/build/toastr.min.js"></script>
+    <script src="utils/constants.js"></script>
+    <script src="services/user-service.js"></script>
+    <script type="text/javascript">
+        UserService.init();
+    </script>
+</body>
+</html>

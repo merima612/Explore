@@ -27,6 +27,16 @@ class UserService extends BaseService {
             throw new Exception('Password must contain at least one uppercase letter, one lowercase letter, and one number.');
         }
 
+
+        if (isset($data['role'])) {
+            if (!in_array($data['role'], ['admin', 'user'])) {
+                throw new Exception('Invalid role. Allowed values: admin, user');
+            }
+        } else {
+
+            $data['role'] = 'user';
+        }
+
         $existing = $this->dao->getByEmail($data['email']);
         if ($existing) {
             throw new Exception('Email is already registered.');
@@ -37,25 +47,33 @@ class UserService extends BaseService {
         return $this->dao->create($data);
     }
 
-
     public function getAllUsers() {
         return $this->dao->getAllUsers();
     }
-
 
     public function getUserById($id) {
         return $this->dao->getUserById($id);
     }
 
-
     public function updateUser($id, $data) {
+        if (isset($data['role'])) {
+            if (!in_array($data['role'], ['admin', 'user'])) {
+                throw new Exception('Invalid role. Allowed values: admin, user');
+            }
+        }
 
         if (!empty($data['password'])) {
             if (strlen($data['password']) < 8) {
                 throw new Exception('Password must be at least 8 characters long.');
             }
+            if (!preg_match('/[A-Z]/', $data['password']) ||
+                !preg_match('/[a-z]/', $data['password']) ||
+                !preg_match('/[0-9]/', $data['password'])) {
+                throw new Exception('Password must contain at least one uppercase letter, one lowercase letter, and one number.');
+            }
             $data['password'] = password_hash($data['password'], PASSWORD_DEFAULT);
         }
+        
         return $this->dao->updateUser($id, $data);
     }
 

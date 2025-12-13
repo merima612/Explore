@@ -1,0 +1,102 @@
+<div class="container">
+   <h1>Users - AJAX demo</h1>
+
+   <button
+     type="button"
+     class="btn btn-info btn-lg"
+     data-toggle="modal"
+     data-target="#addUserModal"
+     onclick="UserService.openAddModal()"
+   >
+     Add User
+   </button>
+
+
+   <div class="modal" id="addUserModal">
+     <div class="modal-dialog">
+       <div class="modal-content">
+         <form id="addUserForm">
+           <div class="modal-header">
+               <h5 class="modal-title">Add User</h5>
+           </div>
+           <div class="modal-body">
+
+               <div class="form-group">
+                   <label for="name">Full Name:</label>
+                   <input type="text" class="form-control" id="name" name="name">
+               </div>
+
+               <div class="form-group">
+                   <label for="email">Email:</label>
+                   <input type="email" class="form-control" id="email" name="email">
+               </div>
+
+           </div>
+           <div class="modal-footer">
+             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onclick="UserService.closeModal()">Close</button>
+             <button type="submit" class="btn btn-primary">Save</button>
+           </div>
+         </form>
+       </div>
+     </div>
+   </div>
+
+
+   <table id="users-table"></table>
+
+
+   <div class="modal" id="editUserModal">
+     <div class="modal-dialog">
+       <div class="modal-content">
+         <form id="editUserForm">
+           <div class="modal-header">
+               <h5 class="modal-title">Edit User</h5>
+           </div>
+           <div class="modal-body">
+
+               <input type="text" id="edit_user_id" name="id" hidden />
+
+               <div class="form-group">
+                   <label for="edit_name">Full Name:</label>
+                   <input type="text" class="form-control" id="edit_name" name="name">
+               </div>
+
+               <div class="form-group">
+                   <label for="edit_email">Email:</label>
+                   <input type="email" class="form-control" id="edit_email" name="email">
+               </div>
+
+           </div>
+           <div class="modal-footer">
+             <button type="button" class="btn btn-secondary" onclick="UserService.closeModal()">Close</button>
+             <button type="submit" class="btn btn-primary">Save changes</button>
+           </div>
+         </form>
+       </div>
+     </div>
+   </div>
+
+   <div class="modal fade" id="deleteUserModal" tabindex="-1" role="dialog">
+     <div class="modal-dialog">
+       <div class="modal-content">
+         <div class="modal-header">
+             <h5 class="modal-title">Delete User</h5>
+         </div>
+
+         <input id="delete_user_id" name="id" hidden />
+         <div class="modal-body" id="delete-user-body"></div>
+
+         <div class="modal-footer">
+             <button type="button" class="btn btn-default" onclick="UserService.closeModal()">Close</button>
+             <button type="submit" onclick="UserService.deleteUser()" class="btn btn-danger">Delete</button>
+         </div>
+
+       </div>
+     </div>
+   </div>
+
+</div>
+
+<script>
+   UserService.init();
+</script>
