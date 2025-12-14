@@ -125,3 +125,16 @@ $(document).on("spapp:changed", function () {
 
   });
 
+  document.addEventListener("DOMContentLoaded", function () {
+    const role = localStorage.getItem("user_role");
+
+    if (role === "admin") {
+      document.querySelectorAll(".admin-controls").forEach(el => {
+        el.classList.remove("d-none");
+      });
+    }
+  });
+  document.getElementById("logoutBtn")?.addEventListener("click", function () {
+    localStorage.clear();
+    window.location.href = "login.html";
+  });

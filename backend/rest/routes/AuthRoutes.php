@@ -2,6 +2,27 @@
 use Firebase\JWT\JWT;
 use Firebase\JWT\Key;
 Flight::group('/auth', function() {
+
+/**
+ * @OA\Get(
+ *     path="/auth/me",
+ *     tags={"auth"},
+ *     summary="Get current user info",
+ *     security={{"BearerAuth": {}}},
+ *     @OA\Response(
+ *         response=200,
+ *         description="Current user information"
+ *     )
+ * )
+ */
+Flight::route('GET /me', function() {
+    $user = Flight::get('user');
+    Flight::json([
+        'success' => true,
+        'data' => $user
+    ]);
+});
+
    /**
     * @OA\Post(
     *     path="/auth/register",

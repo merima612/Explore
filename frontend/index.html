@@ -17,6 +17,7 @@
         <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
         <link rel="stylesheet" href="assets/css/spapp.css"/>
         <link href="assets/css/styles.css" rel="stylesheet" />
+        <link href="assets/css/login.css" rel="stylesheet" />
     </head>
 
     <body id="page-top">
@@ -33,8 +34,8 @@
                     <li class="nav-item"><a class="nav-link spa-link" href="#accommodation" data-page="accommodation">Accommodation</a></li>
                     <li class="nav-item"><a class="nav-link spa-link" href="#destination" data-page="destination">Destination</a></li>
                     <li class="nav-item"><a class="nav-link spa-link" href="#booking" data-page="booking">Booking</a></li>
-                    <li class="nav-item"><a class="nav-link spa-link" href="#login" data-page="login">Login</a></li>
-                    <li class="nav-item"><a class="nav-link spa-link" href="#register" data-page="register">Register</a></li>
+                    <li class="nav-item"><a class="nav-link spa-link" href="login.html" data-page="login">Login</a></li>
+                    <button id="logoutBtn" class="btn btn-outline-danger btn-sm">Logout</button>
                 </ul>
                 </div>
             </div>
@@ -60,7 +61,6 @@
             <section id="mountainhut" data-load="mountainhut.html"></section>
             <section id="mountainhut1" data-load="mountainhut1.html"></section>
             <section id="login" data-load="login.html"></section>
-            <section id="register" data-load="register.html"></section>
         </main>
        
         <footer class="bg-dark text-light py-4">
@@ -95,6 +95,8 @@
         <script src="assets/js/jquery.spapp.min.js"></script>
         <script src="assets/js/scripts.js"></script>
         <script src="assets/js/app.js"></script>
+        <script src="assets/js/auth.js"></script>
+        <script src="assets/js/destinations.js"></script>
         <script src="services/user-service.js"></script>
         <script>
             $(document).ready(function() {

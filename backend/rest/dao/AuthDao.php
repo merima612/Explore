@@ -7,7 +7,7 @@ class AuthDao extends BaseDao {
 
 
    public function __construct() {
-       $this->table_name = "users";
+       $this->table_name = "user";
        parent::__construct($this->table_name);
    }
 

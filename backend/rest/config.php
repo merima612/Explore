@@ -9,24 +9,29 @@ class Config
 {
    public static function DB_NAME()
    {
-       return 'database_name'; 
+       return 'explore_db'; 
    }
+   
    public static function DB_PORT()
    {
-       return  3306;
+       return 3306;
    }
+   
    public static function DB_USER()
    {
        return 'root';
    }
+   
    public static function DB_PASSWORD()
    {
-       return '';
+       return ''; 
    }
+   
    public static function DB_HOST()
    {
-       return '127.0.0.1';
+       return 'localhost'; 
    }
+   
    public static function JWT_SECRET() {
        return 'merima_secret_key_webprogramming';
    }
