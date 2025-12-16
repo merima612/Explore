@@ -86,10 +86,7 @@ $(document).ready(function () {
         view: "login",
         load: "login.html"
     });
-        app.route({
-        view: "register",
-        load: "register.html"
-    });
+
 
     app.run();
 });

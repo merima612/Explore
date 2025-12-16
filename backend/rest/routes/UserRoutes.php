@@ -2,160 +2,152 @@
 
 /**
  * @OA\Get(
- *     path="/user/{id}",
- *     tags={"users"},
- *     summary="Get user by ID",
- *     @OA\Parameter(
- *         name="id",
- *         in="path",
- *         required=true,
- *         description="User ID",
- *         @OA\Schema(type="integer", example=1)
- *     ),
- *     @OA\Response(
- *         response=200,
- *         description="Returns user data for the specified ID"
- *     ),
- *     @OA\Response(
- *         response=404,
- *         description="User not found"
- *     )
+ * path="/user",
+ * tags={"users"},
+ * summary="Get all users",
+ * security={{"BearerAuth": {}}},
+ * @OA\Response(
+ * response=200,
+ * description="List of all users"
+ * )
  * )
  */
-Flight::route('GET /user/@id', function($id){
-   Flight::json(Flight::userService()->getById($id));
+Flight::route('GET /user', function() {
+    Flight::auth_middleware()->authorizeRoles([Roles::ADMIN, Roles::USER]);
+    Flight::json(Flight::userService()->getAllUsers());
 });
 
 /**
  * @OA\Get(
- *     path="/user",
- *     tags={"users"},
- *     summary="Get all users",
- *     @OA\Response(
- *         response=200,
- *         description="List of all registered users"
- *     )
+ * path="/user/{id}",
+ * tags={"users"},
+ * summary="Get user by ID",
+ * security={{"BearerAuth": {}}},
+ * @OA\Parameter(
+ * name="id",
+ * in="path",
+ * required=true,
+ * description="ID of the user",
+ * @OA\Schema(type="integer", example=1)
+ * ),
+ * @OA\Response(
+ * response=200,
+ * description="Returns a user record by ID"
+ * )
  * )
  */
-Flight::route('GET /user', function(){
-   Flight::json(Flight::userService()->getAllUsers());
+Flight::route('GET /user/@id', function($id) {
+    Flight::auth_middleware()->authorizeRoles([Roles::ADMIN, Roles::USER]);
+    Flight::json(Flight::userService()->getById($id));
 });
 
 /**
  * @OA\Post(
- *     path="/user",
- *     tags={"users"},
- *     summary="Register a new user",
- *     @OA\RequestBody(
- *         required=true,
- *         @OA\JsonContent(
- *             required={"name", "email", "password"},
- *             @OA\Property(property="name", type="string", example="Merima Durak"),
- *             @OA\Property(property="email", type="string", example="merima@example.com"),
- *             @OA\Property(property="password", type="string", example="strongPassword123"),
- *             @OA\Property(property="data_joined", type="string", format="date", example="2025-07-07")
- *         )
- *     ),
- *     @OA\Response(
- *         response=200,
- *         description="User registered successfully"
- *     ),
- *     @OA\Response(
- *         response=400,
- *         description="Invalid input or user already exists"
- *     )
+ * path="/user",
+ * tags={"users"},
+ * security={{"BearerAuth": {}}},
+ * summary="Create a new user",
+ * @OA\RequestBody(
+ * required=true,
+ * @OA\JsonContent(
+ * required={"name", "email", "password"},
+ * @OA\Property(property="name", type="string", example="John Doe"),
+ * @OA\Property(property="email", type="string", example="ima@gmail.com"),
+ * @OA\Property(property="password", type="string", example="ima"),
+ * @OA\Property(property="role", type="string", enum={"admin", "user"}, example="user")
+ * )
+ * ),
+ * @OA\Response(
+ * response=200,
+ * description="User created successfully"
+ * ),
+ * @OA\Response(
+ * response=400,
+ * description="Invalid input or user already exists"
+ * )
  * )
  */
-Flight::route('POST /user', function(){
-   $data = Flight::request()->data->getData();
-   try {
-       Flight::json(Flight::userService()->registerUser($data));
-   } catch (Exception $e) {
-       Flight::json(['error' => $e->getMessage()], 400);
-   }
+Flight::route('POST /user', function() {
+    Flight::auth_middleware()->authorizeRoles([Roles::ADMIN]);
+    $data = Flight::request()->data->getData();
+    $role = $data['role'] ?? "user"; 
+    
+    try {
+        Flight::json(
+            Flight::userService()->registerUser(
+                $data
+                /* Mogli biste i ovako:
+                $data['name'],
+                $data['email'],
+                $data['password'],
+                $role
+                */
+            )
+        );
+    } catch (Exception $e) {
+        Flight::json(['error' => $e->getMessage()], 400);
+    }
 });
 
 /**
  * @OA\Put(
- *     path="/user/{id}",
- *     tags={"users"},
- *     summary="Update user by ID",
- *     @OA\Parameter(
- *         name="id",
- *         in="path",
- *         required=true,
- *         description="User ID",
- *         @OA\Schema(type="integer", example=1)
- *     ),
- *     @OA\RequestBody(
- *         required=true,
- *         @OA\JsonContent(
- *             @OA\Property(property="name", type="string", example="Updated Name"),
- *             @OA\Property(property="email", type="string", example="updated_email@example.com"),
- *             @OA\Property(property="data_joined", type="string", format="date", example="2025-07-07")
- *         )
- *     ),
- *     @OA\Response(
- *         response=200,
- *         description="User updated successfully"
- *     )
+ * path="/user/{id}",
+ * tags={"users"},
+ * summary="Update an existing user",
+ * security={{"BearerAuth": {}}},
+ * @OA\Parameter(
+ * name="id",
+ * in="path",
+ * required=true,
+ * description="User ID",
+ * @OA\Schema(type="integer", example=1)
+ * ),
+ * @OA\RequestBody(
+ * required=true,
+ * @OA\JsonContent(
+ * @OA\Property(property="name", type="string", example="Updated Name"),
+ * @OA\Property(property="email", type="string", example="updated.email@gmail.com"),
+ * @OA\Property(property="password", type="string", example="newpassword123"),
+ * @OA\Property(property="role", type="string", enum={"admin", "user"}, example="admin"),
+ * @OA\Property(property="date_joined", type="string", format="date", example="2025-07-07"),
+ * )
+ * ),
+ * @OA\Response(
+ * response=200,
+ * description="User updated successfully"
+ * )
  * )
  */
-Flight::route('PUT /user/@id', function($id){
-   $data = Flight::request()->data->getData();
-   Flight::json(Flight::userService()->update($id, $data));
+Flight::route('PUT /user/@id', function($id) {
+    Flight::auth_middleware()->authorizeRoles([Roles::ADMIN]);
+    $data = Flight::request()->data->getData();
+    Flight::json(Flight::userService()->update($id, $data));
 });
 
-/**
- * @OA\Patch(
- *     path="/user/{id}",
- *     tags={"users"},
- *     summary="Partially update a user by ID",
- *     @OA\Parameter(
- *         name="id",
- *         in="path",
- *         required=true,
- *         description="User ID",
- *         @OA\Schema(type="integer", example=1)
- *     ),
- *     @OA\RequestBody(
- *         required=true,
- *         @OA\JsonContent(
- *             @OA\Property(property="email", type="string", example="newemail@example.com"),
- *             @OA\Property(property="data_joined", type="string", format="date", example="2025-07-07")
- *         )
- *     ),
- *     @OA\Response(
- *         response=200,
- *         description="User partially updated"
- *     )
- * )
- */
-Flight::route('PATCH /user/@id', function($id){
-   $data = Flight::request()->data->getData();
-   Flight::json(Flight::userService()->update($id, $data)); 
-});
 
 /**
  * @OA\Delete(
- *     path="/user/{id}",
- *     tags={"users"},
- *     summary="Delete a user by ID",
- *     @OA\Parameter(
- *         name="id",
- *         in="path",
- *         required=true,
- *         description="User ID",
- *         @OA\Schema(type="integer", example=1)
- *     ),
- *     @OA\Response(
- *         response=200,
- *         description="User deleted successfully"
- *     )
+ * path="/user/{id}",
+ * tags={"users"},
+ * summary="Delete a user by ID",
+ * security={{"BearerAuth": {}}},
+ * @OA\Parameter(
+ * name="id",
+ * in="path",
+ * required=true,
+ * description="ID of the user to delete",
+ * @OA\Schema(type="integer", example=1)
+ * ),
+ * @OA\Response(
+ * response=200,
+ * description="User deleted successfully"
+ * )
  * )
  */
-Flight::route('DELETE /user/@id', function($id){
-   Flight::json(Flight::userService()->delete($id));
+Flight::route('DELETE /user/@id', function($id) {
+    Flight::auth_middleware()->authorizeRoles([Roles::ADMIN]);
+    Flight::json(Flight::userService()->delete($id));
 });
 
 ?>
+
