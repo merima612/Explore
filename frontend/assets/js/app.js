@@ -82,6 +82,10 @@ $(document).ready(function () {
         view: "mountainhut1",
         load: "mountainhut1.html"
     });
+    app.route({
+        view: "register",
+        load: "register.html"
+    });
         app.route({
         view: "login",
         load: "login.html"

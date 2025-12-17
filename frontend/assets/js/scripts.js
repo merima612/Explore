@@ -138,3 +138,15 @@ $(document).on("spapp:changed", function () {
     localStorage.clear();
     window.location.href = "login.html";
   });
+$(document).on("spapp:page", function (e, page) {
+    const user = JSON.parse(localStorage.getItem("user"));
+
+    if (!user && page !== "login") {
+        window.location.hash = "#login";
+    }
+
+    if (page === "list" && user?.role !== "ADMIN") {
+        toastr.error("Access denied");
+        window.location.hash = "#home";
+    }
+});
