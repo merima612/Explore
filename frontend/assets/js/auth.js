@@ -1,20 +1,38 @@
+$(document).ready(function () {
+  updateNavbar();
+});
+
 function updateNavbar() {
-    const user = JSON.parse(localStorage.getItem("user"));
+  const user = JSON.parse(localStorage.getItem("user"));
 
-    $(".auth-only, .admin-only, .guest-only").hide();
+  $(".guest-only").hide();
+  $(".auth-only").hide();
+  $(".admin-only").hide();
 
-    if (!user) {
-        $(".guest-only").show();
-        return;
-    }
 
+  if (!user) {
+    $(".guest-only").show();
+    return;
+  }
+
+ 
+  if (user.role === "user") {
     $(".auth-only").show();
+    return;
+  }
 
-    if (user.role === "admin") {
-        $(".admin-only").show();
-    }
+  
+  if (user.role === "admin") {
+    $(".auth-only").show();
+    $(".admin-only").show();
+    return;
+  }
 }
 
-$(document).ready(function () {
-    updateNavbar();
+$(document).on("click", ".logout", function (e) {
+  e.preventDefault();
+  localStorage.removeItem("user");
+  updateNavbar();
+  $("#login-form")[0]?.reset();
+  window.location.hash = "#login";
 });

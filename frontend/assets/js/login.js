@@ -7,25 +7,33 @@ $(document).ready(function () {
     const password = $("#password").val();
 
     if (email === "admin@test.com" && password === "admin1234") {
-      localStorage.setItem("user_role", "admin");
-      localStorage.setItem("user_email", email);
 
+      localStorage.setItem("user", JSON.stringify({
+        email: email,
+        role: "admin"
+      }));
+      localStorage.setItem("justLoggedIn", "true");
+      updateNavbar(); 
       toastr.success("Welcome admin!");
-      window.location.href = "index.html";
+      window.location.hash = "#home1";
       return;
     }
 
     if (email === "user@test.com" && password === "user1234") {
-      localStorage.setItem("user_role", "user");
-      localStorage.setItem("user_email", email);
 
+      localStorage.setItem("user", JSON.stringify({
+        email: email,
+        role: "user"
+      }));
+      localStorage.setItem("justLoggedIn", "true");
+      updateNavbar(); 
       toastr.success("Welcome!");
-      window.location.href = "index.html";
+      window.location.hash = "#home1";
       return;
     }
-
     toastr.error("Invalid email or password");
   });
+  
 
 });
 

@@ -90,7 +90,10 @@ $(document).ready(function () {
         view: "login",
         load: "login.html"
     });
-
+        app.route({
+        view: "home1",
+        load: "home1.html"
+    });
 
     app.run();
 });

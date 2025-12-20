@@ -25,8 +25,9 @@
     <body id="page-top">
         <header>
             <nav class="navbar navbar-expand-lg navbar-light fixed-top py-3" id="mainNav">
-            <div class="container px-4 px-lg-5 guest-only">
-                <a class="navbar-brand" href="#home" data-page="home">Explore Bosnia</a>
+            <div class="container px-4 px-lg-5">
+                <a class="navbar-brand guest-only" href="#home" data-page="home">Explore Bosnia</a>
+                <a class="navbar-brand auth-only" href="#home1" data-page="home1">Explore Bosnia</a>
                 <button class="navbar-toggler navbar-toggler-right" type="button" data-bs-toggle="collapse"
                 data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false"
                 aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
@@ -37,7 +38,7 @@
                     <li class="nav-item auth-only"><a class="nav-link spa-link" href="#destination" data-page="destination">Destination</a></li>
                     <li class="nav-item auth-only"><a class="nav-link spa-link" href="#booking" data-page="booking">Booking</a></li>
                     <li class="nav-item admin-only"><a class="nav-link spa-link" href="#list" data-page="list">List of users</a></li>
-                    <li class="nav-item auth-only"><a class="nav-link spa-link" href="#register" data-page="register">Register</a></li>
+                    <li class="nav-item guest-only"><a class="nav-link spa-link" href="#register" data-page="register">Register</a></li>
                     <button class="btn-auth login guest-only">
                         <a href="#login" data-page="login">Login</a>
                     </button>
@@ -75,6 +76,7 @@
             <section id="list" data-load="list.html"></section>
             <section id="register" data-load="register.html"></section>
             <section id="login" data-load="login.html"></section>
+            <section id="home1" data-load="home1.html"></section>
         </main>
        
         <footer class="bg-dark text-light py-4">
@@ -107,9 +109,9 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/SimpleLightbox/2.1.0/simpleLightbox.min.js"></script>
         <script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
         <script src="assets/js/jquery.spapp.min.js"></script>
+        <script src="assets/js/auth.js"></script>
         <script src="assets/js/scripts.js"></script>
         <script src="assets/js/app.js"></script>
-        <script src="assets/js/auth.js"></script>
         <script src="assets/js/destinations.js"></script>
         <script src="services/user-service.js"></script>
         <script>

@@ -11196,3 +11196,19 @@ footer {
     margin-top: -10px;
     font-size: 4rem;
 }
+#reg{
+  text-align: center;
+  margin-top: 2%;
+}
+.page-fade-out {
+  animation: fadeOut 0.3s forwards;
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
