@@ -143,7 +143,6 @@ Flight::route('PUT /user/@id', function($id) {
     Flight::json(Flight::userService()->update($id, $data));
 });
 
-
 /**
  * @OA\Delete(
  * path="/user/{id}",

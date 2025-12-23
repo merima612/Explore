@@ -152,7 +152,6 @@ let StudentService = {
        $("#delete-student-body").html("Do you want to delete student: " + student.name);
        $("#delete_student_id").val(student.id);
    },
-   
    deleteStudent: function () {
     $.blockUI({ message: '<h3>Deleting...</h3>' });
     RestClient.delete('students/' + $("#delete_student_id").val(), null, function(response) {
