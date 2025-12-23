@@ -149,3 +149,31 @@ $(document).on("spapp:page", function (e, page) {
     }
 });
 
+$(document).ready(function() {
+    // Fetch users from API
+    $.ajax({
+        url: "/user",
+        method: "GET",
+        success: function(users) {
+            const tbody = $("#usersTable tbody");
+            tbody.empty(); // Clear table in case
+
+            users.forEach(user => {
+                const row = `
+                    <tr>
+                        <td>${user.user_id}</td>
+                        <td>${user.name}</td>
+                        <td>${user.email}</td>
+                        <td>${user.role}</td>
+                        <td>${user.date_joined || ''}</td>
+                    </tr>
+                `;
+                tbody.append(row);
+            });
+        },
+        error: function(err) {
+            toastr.error("Failed to load users");
+            console.error(err);
+        }
+    });
+});

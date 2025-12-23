@@ -70,6 +70,16 @@ Flight::route('GET /user/@id', function($id) {
 Flight::route('POST /user', function() {
     Flight::auth_middleware()->authorizeRoles([Roles::ADMIN]);
     $data = Flight::request()->data->getData();
+    $errors = [];
+    if (!isset($data['name']) || trim($data['name']) === '') $errors[] = "Name cannot be empty";
+    if (!isset($data['email']) || trim($data['email']) === '') $errors[] = "Email cannot be empty";
+    if (!isset($data['password']) || strlen($data['password']) < 6) $errors[] = "Password must be at least 6 characters";
+
+    if (!empty($errors)) {
+        Flight::json(["errors" => $errors], 400);
+        return;
+    }
+
     $role = $data['role'] ?? "user"; 
     
     try {
@@ -121,6 +131,15 @@ Flight::route('POST /user', function() {
 Flight::route('PUT /user/@id', function($id) {
     Flight::auth_middleware()->authorizeRoles([Roles::ADMIN]);
     $data = Flight::request()->data->getData();
+    $errors = [];
+    if (isset($data['name']) && trim($data['name']) === '') $errors[] = "Name cannot be empty";
+    if (isset($data['email']) && trim($data['email']) === '') $errors[] = "Email cannot be empty";
+    if (isset($data['password']) && strlen($data['password']) < 6) $errors[] = "Password must be at least 6 characters";
+
+    if (!empty($errors)) {
+        Flight::json(["errors" => $errors], 400);
+        return;
+    }
     Flight::json(Flight::userService()->update($id, $data));
 });
 

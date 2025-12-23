@@ -65,6 +65,17 @@ Flight::route('GET /accommodation/@id', function($id) {
 Flight::route('POST /accommodation', function() {
     Flight::auth_middleware()->authorizeRoles([Roles::ADMIN]);  
     $data = Flight::request()->data->getData();
+
+    $errors = [];
+    if (empty($data['name'])) $errors[] = "Name is required";
+    if (empty($data['type'])) $errors[] = "Type is required";
+    if (!isset($data['price_per_night'])) $errors[] = "Price per night is required";
+
+    if (!empty($errors)) {
+        Flight::json(["errors" => $errors], 400);
+        return;
+    }
+
     Flight::json(Flight::accommodationService()->create($data));
 });
 
@@ -100,6 +111,15 @@ Flight::route('POST /accommodation', function() {
 Flight::route('PUT /accommodation/@id', function($id) {
     Flight::auth_middleware()->authorizeRoles([Roles::ADMIN]);
     $data = Flight::request()->data->getData();
+
+    // server-side validation
+    $errors = [];
+    if (isset($data['price_per_night']) && !is_numeric($data['price_per_night'])) $errors[] = "Price must be a number";
+    if (!empty($errors)) {
+        Flight::json(["errors" => $errors], 400);
+        return;
+    }
+
     Flight::json(Flight::accommodationService()->update($id, $data));
 });
 
@@ -131,6 +151,14 @@ Flight::route('PUT /accommodation/@id', function($id) {
 Flight::route('PATCH /accommodation/@id', function($id) {
     Flight::auth_middleware()->authorizeRoles([Roles::ADMIN]);
     $data = Flight::request()->data->getData();
+
+    $errors = [];
+    if (isset($data['price_per_night']) && !is_numeric($data['price_per_night'])) $errors[] = "Price must be a number";
+    if (!empty($errors)) {
+        Flight::json(["errors" => $errors], 400);
+        return;
+    }
+
     Flight::json(Flight::accommodationService()->update($id, $data));
 });
 

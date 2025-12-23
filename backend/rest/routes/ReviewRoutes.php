@@ -72,6 +72,15 @@ Flight::route('GET /review/@id', function($id) {
 Flight::route('POST /review', function() {
     Flight::auth_middleware()->authorizeRoles([Roles::ADMIN, Roles::USER]);
     $data = Flight::request()->data->getData();
+    $errors = [];
+    if (!isset($data['user_id']) || empty($data['user_id'])) $errors[] = "User ID is required";
+    if (!isset($data['destination_id']) || empty($data['destination_id'])) $errors[] = "Destination ID is required";
+    if (!isset($data['rating']) || $data['rating'] < 1 || $data['rating'] > 5) $errors[] = "Rating must be between 1 and 5";
+
+    if (!empty($errors)) {
+        Flight::json(["errors" => $errors], 400);
+        return;
+    }
     try {
         Flight::json(Flight::reviewService()->createReview($data));
     } catch (Exception $e) {
@@ -107,6 +116,12 @@ Flight::route('POST /review', function() {
 Flight::route('PUT /review/@id', function($id) {
     Flight::auth_middleware()->authorizeRoles([Roles::ADMIN, Roles::USER]);
     $data = Flight::request()->data->getData();
+    $errors = [];
+    if (isset($data['rating']) && ($data['rating'] < 1 || $data['rating'] > 5)) $errors[] = "Rating must be between 1 and 5";
+    if (!empty($errors)) {
+        Flight::json(["errors" => $errors], 400);
+        return;
+    }
     Flight::json(Flight::reviewService()->update($id, $data));
 });
 

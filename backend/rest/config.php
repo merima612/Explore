@@ -66,5 +66,5 @@ class Database {
        return self::$connection;
    }
 }
-   */
+*/
 ?>

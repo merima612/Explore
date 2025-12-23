@@ -32,6 +32,7 @@ function updateNavbar() {
 $(document).on("click", ".logout", function (e) {
   e.preventDefault();
   localStorage.removeItem("user");
+  localStorage.removeItem("jwt_token");
   updateNavbar();
   $("#login-form")[0]?.reset();
   window.location.hash = "#login";
