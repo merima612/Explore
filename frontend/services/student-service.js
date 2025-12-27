@@ -126,6 +126,7 @@ let StudentService = {
    },
    
    closeModal: function() {
+    
        $('#editStudentModal').hide();
        $("#deleteStudentModal").modal("hide");
        $('#addStudentModal').hide();

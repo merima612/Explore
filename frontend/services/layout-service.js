@@ -38,5 +38,13 @@ var LayoutService = {
                     <button class="btn btn-primary" onclick="AuthService.logout()">Logout</button>
                 </li>`;
     },
-
+/*
+    getAdminNav: function() {
+    return `
+        <li class="nav-item mx-0 mx-lg-1">
+            <a class="nav-link py-3 px-0 px-lg-3 rounded" href="#users">Users List</a>
+        </li>
+        `;
+}
+*/
 };

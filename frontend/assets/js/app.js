@@ -94,6 +94,14 @@ $(document).ready(function () {
         view: "home1",
         load: "home1.html"
     });
+    app.route({
+    view: 'users', 
+    load: 'list.html', 
+    onCreate: function() { },
+    onSectionSelected: function() {
+        UserService.listUsers();
+    }
+});
 
     app.run();
 });

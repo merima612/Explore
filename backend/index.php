@@ -23,6 +23,13 @@ require_once __DIR__ . '/rest/services/ReviewService.php';
 require_once __DIR__ . '/middleware/AuthMiddleware.php';
 require_once __DIR__ . '/data/roles.php';
 
+header('Access-Control-Allow-Origin: *');
+header('Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS');
+header('Access-Control-Allow-Headers: Content-Type, Authorization, X-Requested-With');
+
+if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
+    exit;
+}
 use Firebase\JWT\JWT;
 use Firebase\JWT\Key;
 
@@ -50,16 +57,19 @@ Flight::register('destinationService', 'DestinationService');
 Flight::register('reviewService', 'ReviewService');
 Flight::register('auth_service', "AuthService");
 Flight::register('auth_middleware', "AuthMiddleware");
-
 Flight::route('/*', function() {
-    if(
-        strpos(Flight::request()->url, '/auth/login') === 0 ||
-        strpos(Flight::request()->url, '/auth/register') === 0
+    $url = Flight::request()->url;
+
+    if (
+        strpos($url, '/auth/login') === 0 || 
+        strpos($url, '/auth/register') === 0 ||
+        ($url == '/user' && Flight::request()->method == 'POST')
     ) {
         return TRUE;
     } else {
         try {
-            $token = Flight::request()->getHeader("Authentication");
+    
+            $token = Flight::request()->getHeader("Authorization"); 
             if(Flight::auth_middleware()->verifyToken($token))
                 return TRUE;
         } catch (\Exception $e) {

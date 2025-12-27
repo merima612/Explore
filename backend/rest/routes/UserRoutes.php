@@ -68,9 +68,10 @@ Flight::route('GET /user/@id', function($id) {
  * )
  */
 Flight::route('POST /user', function() {
-    Flight::auth_middleware()->authorizeRoles([Roles::ADMIN]);
+
     $data = Flight::request()->data->getData();
     $errors = [];
+    
     if (!isset($data['name']) || trim($data['name']) === '') $errors[] = "Name cannot be empty";
     if (!isset($data['email']) || trim($data['email']) === '') $errors[] = "Email cannot be empty";
     if (!isset($data['password']) || strlen($data['password']) < 6) $errors[] = "Password must be at least 6 characters";
@@ -80,20 +81,11 @@ Flight::route('POST /user', function() {
         return;
     }
 
-    $role = $data['role'] ?? "user"; 
+    // Sigurnost: Force-iraj rolu na 'user' tako da se niko ne može sam registrovati kao 'admin'
+    $data['role'] = "user"; 
     
     try {
-        Flight::json(
-            Flight::userService()->registerUser(
-                $data
-                /* Mogli biste i ovako:
-                $data['name'],
-                $data['email'],
-                $data['password'],
-                $role
-                */
-            )
-        );
+        Flight::json(Flight::userService()->registerUser($data));
     } catch (Exception $e) {
         Flight::json(['error' => $e->getMessage()], 400);
     }
