@@ -11110,11 +11110,117 @@ footer {
 .modal-backdrop {
   display: none !important;
 }
+#mainNav {
+    background: linear-gradient(
+        to bottom,
+        rgba(0, 0, 0, 0.65) 0%,
+        rgba(0, 0, 0, 0.55) 35%,
+        rgba(0, 0, 0, 0.35) 60%,
+        rgba(0, 0, 0, 0.15) 80%,
+        rgba(0, 0, 0, 0) 100%
+    );
+
+    border-bottom: none;
+}
+#mainNav .navbar-brand,
 #mainNav .nav-link,
-#mainNav .navbar-brand {
-    color: #000000 !important;
- }
+#mainNav .btn-auth a {
+    color: #ffffff !important;
+}
+#mainNav .nav-link,
+#mainNav .navbar-brand,
+#mainNav .btn-auth {
+    transition: transform 0.25s ease, color 0.55s ease;
+}
+
 #mainNav .nav-link:hover,
- #mainNav .navbar-brand:hover {
-    color: #ffffffaa !important;
-       }
+#mainNav .navbar-brand:hover,
+#mainNav .btn-auth:hover {
+    transform: scale(1.08);
+}
+
+.navbar-nav {
+    align-items: center;         
+    gap: 10px;
+}
+
+.btn-auth {
+    border: 1px solid #ced4da;
+    background: transparent;
+    padding: 6px 14px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    transition: all 0.25s ease;
+    display: inline-flex;
+    align-items: center;
+}
+
+
+.btn-auth a {
+    text-decoration: none;
+    color: #000;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.btn-auth.login:hover {
+    background-color: #f1f3f5;
+    border-color: #adb5bd;
+}
+#mainNav .btn-auth.login:hover a {
+    color: #000 !important;
+}
+
+
+.btn-auth.logout {
+    border-color: #dc3545;
+}
+
+.btn-auth.logout a {
+    color: #dc3545;
+}
+
+.btn-auth.logout:hover {
+    background-color: #dc3545;
+}
+
+.btn-auth.logout:hover a {
+    color: #fff;
+}
+.welcome{
+    font-family: 'Playfair Display', serif;
+    color: #333;
+    text-align: center;
+    margin-top: -10px;
+    font-size: 4rem;
+}
+#reg{
+  text-align: center;
+  margin-top: 2%;
+}
+.page-fade-out {
+  animation: fadeOut 0.3s forwards;
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+label.error {
+    color: #e74c3c; 
+    font-size: 0.85rem;
+    margin-top: 5px;
+    display: block;
+    width: 100%;
+}
+
+input.error {
+    border: 1px solid #e74c3c !important;
+}

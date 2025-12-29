@@ -70,6 +70,15 @@ Flight::route('GET /destination/@id', function($id) {
 Flight::route('POST /destination', function() {
     Flight::auth_middleware()->authorizeRoles([Roles::ADMIN]);
     $data = Flight::request()->data->getData();
+
+    $errors = [];
+    if (empty($data['name'])) $errors[] = "Name is required";
+    if (empty($data['location'])) $errors[] = "Location is required";
+
+    if (!empty($errors)) {
+        Flight::json(["errors" => $errors], 400);
+        return;
+    }
     Flight::json(Flight::destinationService()->create($data));
 });
 
@@ -103,6 +112,14 @@ Flight::route('POST /destination', function() {
 Flight::route('PUT /destination/@id', function($id) {
     Flight::auth_middleware()->authorizeRoles([Roles::ADMIN]);
     $data = Flight::request()->data->getData();
+    $errors = [];
+    if (isset($data['name']) && trim($data['name']) === '') $errors[] = "Name cannot be empty";
+    if (isset($data['location']) && trim($data['location']) === '') $errors[] = "Location cannot be empty";
+
+    if (!empty($errors)) {
+        Flight::json(["errors" => $errors], 400);
+        return;
+    }
     Flight::json(Flight::destinationService()->update($id, $data));
 });
 
@@ -134,6 +151,14 @@ Flight::route('PUT /destination/@id', function($id) {
 Flight::route('PATCH /destination/@id', function($id) {
     Flight::auth_middleware()->authorizeRoles([Roles::ADMIN]);
     $data = Flight::request()->data->getData();
+    $errors = [];
+    if (isset($data['name']) && trim($data['name']) === '') $errors[] = "Name cannot be empty";
+    if (isset($data['location']) && trim($data['location']) === '') $errors[] = "Location cannot be empty";
+
+    if (!empty($errors)) {
+        Flight::json(["errors" => $errors], 400);
+        return;
+    }
     Flight::json(Flight::destinationService()->update($id, $data));
 });
 

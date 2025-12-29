@@ -1,34 +1,3 @@
-$(document).ready(function () {
-
-  $("#login-form").on("submit", function (e) {
-    e.preventDefault();
-
-    const email = $("#email").val();
-    const password = $("#password").val();
-
-    if (email === "admin@test.com" && password === "admin1234") {
-      localStorage.setItem("user_role", "admin");
-      localStorage.setItem("user_email", email);
-
-      toastr.success("Welcome admin!");
-      window.location.href = "index.html";
-      return;
-    }
-
-    if (email === "user@test.com" && password === "user1234") {
-      localStorage.setItem("user_role", "user");
-      localStorage.setItem("user_email", email);
-
-      toastr.success("Welcome!");
-      window.location.href = "index.html";
-      return;
-    }
-
-    toastr.error("Invalid email or password");
-  });
-
-});
-
 function toggleAdminCredentials() {
 
     document.getElementById('userCredentials').style.display = 'none';

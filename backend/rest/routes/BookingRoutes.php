@@ -47,7 +47,7 @@ Flight::route('GET /booking/@id', function($id) {
  *     @OA\RequestBody(
  *         required=true,
  *         @OA\JsonContent(
- *             required={"user_id", "accommodation_id", "start_date", "end_date"},
+ *             required={"user_id", "accommodation_id", "check_in", "check_out"},
  *             @OA\Property(property="user_id", type="integer", example=2),
  *             @OA\Property(property="accommodation_id", type="integer", example=5),
  *             @OA\Property(property="check_in", type="string", format="date", example="2025-07-01"),
@@ -68,6 +68,19 @@ Flight::route('GET /booking/@id', function($id) {
 Flight::route('POST /booking', function() {
     Flight::auth_middleware()->authorizeRoles([Roles::ADMIN]);
     $data = Flight::request()->data->getData();
+
+    $errors = [];
+    if (empty($data['user_id'])) $errors[] = "User ID is required";
+    if (empty($data['accommodation_id'])) $errors[] = "Accommodation ID is required";
+    if (empty($data['check_in'])) $errors[] = "Check-in date is required";
+    if (empty($data['check_out'])) $errors[] = "Check-out date is required";
+    if (isset($data['total_price']) && !is_numeric($data['total_price'])) $errors[] = "Total price must be a number";
+
+    if (!empty($errors)) {
+        Flight::json(["errors" => $errors], 400);
+        return;
+    }
+
     try {
         Flight::json(Flight::bookingService()->createBooking($data));
     } catch (Exception $e) {
@@ -104,6 +117,16 @@ Flight::route('POST /booking', function() {
 Flight::route('PUT /booking/@id', function($id) {
     Flight::auth_middleware()->authorizeRoles([Roles::ADMIN, Roles::USER]);
     $data = Flight::request()->data->getData();
+
+    // server-side validation
+    $errors = [];
+    if (isset($data['total_price']) && !is_numeric($data['total_price'])) $errors[] = "Total price must be a number";
+
+    if (!empty($errors)) {
+        Flight::json(["errors" => $errors], 400);
+        return;
+    }
+
     Flight::json(Flight::bookingService()->update($id, $data));
 });
 
@@ -135,6 +158,15 @@ Flight::route('PUT /booking/@id', function($id) {
 Flight::route('PATCH /booking/@id', function($id) {
     Flight::auth_middleware()->authorizeRoles([Roles::ADMIN]);
     $data = Flight::request()->data->getData();
+
+    $errors = [];
+    if (isset($data['total_price']) && !is_numeric($data['total_price'])) $errors[] = "Total price must be a number";
+
+    if (!empty($errors)) {
+        Flight::json(["errors" => $errors], 400);
+        return;
+    }
+
     Flight::json(Flight::bookingService()->update($id, $data));
 });
 

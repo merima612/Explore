@@ -3,7 +3,7 @@ require_once __DIR__ . '/Database.php';
 
 class BaseDao {
     protected $table;
-    protected $id_column = 'id';
+    protected $id_column;
     protected $connection;
 
     public function __construct($table, $id_column = 'id') {
@@ -47,9 +47,11 @@ class BaseDao {
             $fields .= "$key = :$key, ";
         }
         $fields = rtrim($fields, ", ");
-        $sql = "UPDATE " . $this->table . " SET $fields WHERE " . $this->id_column . " = :id";
+        $sql = "UPDATE " . $this->table . " SET $fields WHERE " . $this->id_column . " = :id_val";
+        
         $stmt = $this->connection->prepare($sql);
-        $data['id'] = $id;
+        $data['id_val'] = $id; 
+        
         return $stmt->execute($data);
     }
 
@@ -70,8 +72,7 @@ class BaseDao {
         return $stmt->fetch();
     }
     
-    public function add($entity)
-    {
+    public function add($entity) {
         $query = "INSERT INTO " . $this->table . " (";
         foreach ($entity as $column => $value) {
             $query .= $column . ', ';
@@ -86,7 +87,9 @@ class BaseDao {
 
         $stmt = $this->connection->prepare($query);
         $stmt->execute($entity);
-        $entity['id'] = $this->connection->lastInsertId();
+        
+
+        $entity[$this->id_column] = $this->connection->lastInsertId();
         return $entity;
     }
 }

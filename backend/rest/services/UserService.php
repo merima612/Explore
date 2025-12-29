@@ -43,8 +43,10 @@ class UserService extends BaseService {
         }
 
         $data['password'] = password_hash($data['password'], PASSWORD_DEFAULT);
+        $data['date_joined'] = date('Y-m-d'); 
 
-        return $this->dao->create($data);
+        return $this->dao->add($data);
+       
     }
 
     public function getAllUsers() {
