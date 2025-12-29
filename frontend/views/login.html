@@ -1,24 +1,9 @@
-<!DOCTYPE html>
-<html lang="en" dir="ltr">
-<head>
-  <meta charset="utf-8" />
-  <title>Login - Explore Bosnia</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" />
-  <link href="https://cdn.jsdelivr.net/npm/toastr@2.1.4/build/toastr.min.css" rel="stylesheet" />
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
-  <link href="assets/css/login.css" rel="stylesheet" />
-</head>
-
-<body class="bg-light">
-
 <section class="page-section bg-light min-vh-100 d-flex align-items-center" id="login">
   <div class="container">
     <div class="row justify-content-center">
       <div class="col-lg-5 col-md-8">
-        
         <div class="card border-0 shadow-lg rounded-4 overflow-hidden">
           <div class="card-body p-4 p-md-5">
-            
             <div class="text-center mb-4">
               <h2 class="fw-bolder">Welcome back!</h2>
               <p class="text-muted">Login to manage your account</p>
@@ -26,13 +11,13 @@
 
             <form id="login-form">
               <div class="form-floating mb-3">
-                <input type="email" class="form-control border-0 bg-light" id="email" name="email" placeholder="name@example.com" required />
-                <label for="email" class="text-muted">Email address</label>
+                <input type="email" class="form-control border-0 bg-light" name="email" placeholder="name@example.com" required />
+                <label class="text-muted">Email address</label>
               </div>
 
               <div class="form-floating mb-4">
-                <input type="password" class="form-control border-0 bg-light" id="password" name="password" placeholder="Enter your password" required />
-                <label for="password" class="text-muted">Password</label>
+                <input type="password" class="form-control border-0 bg-light" name="password" placeholder="Enter your password" required />
+                <label class="text-muted">Password</label>
               </div>
 
               <div class="d-grid mb-4">
@@ -43,33 +28,22 @@
 
               <div class="row g-2 mb-3">
                 <div class="col-6">
-                  <div class="p-2 border rounded bg-light text-center" style="cursor: pointer;" onclick="toggleAdminCredentials()">
+                  <div class="p-2 border rounded bg-light text-center" style="cursor: pointer;" onclick="$('#adminCredentials').toggle()">
                     <small class="fw-bold d-block">Admin Demo</small>
-                    <small class="text-muted" style="font-size: 0.7rem;">Click to show</small>
                   </div>
                 </div>
                 <div class="col-6">
-                  <div class="p-2 border rounded bg-light text-center" style="cursor: pointer;" onclick="toggleUserCredentials()">
+                  <div class="p-2 border rounded bg-light text-center" style="cursor: pointer;" onclick="$('#userCredentials').toggle()">
                     <small class="fw-bold d-block">User Demo</small>
-                    <small class="text-muted" style="font-size: 0.7rem;">Click to show</small>
                   </div>
                 </div>
               </div>
 
-              <div id="adminCredentials" class="mb-3 p-3 border rounded bg-light" style="display: none; font-size: 0.85rem;">
-                <div class="d-flex justify-content-between">
-                  <strong>Admin:</strong>
-                  <span onclick="hideAdminCreds()" style="cursor:pointer">&times;</span>
-                </div>
-                <code>admin@test.com</code> / <code>admin1234</code>
+              <div id="adminCredentials" class="mb-3 p-3 border rounded bg-light" style="display: none;">
+                <code>admin@test.com</code> / <code>Admin1234</code>
               </div>
-
-              <div id="userCredentials" class="mb-3 p-3 border rounded bg-light" style="display: none; font-size: 0.85rem;">
-                <div class="d-flex justify-content-between">
-                  <strong>User:</strong>
-                  <span onclick="hideUserCreds()" style="cursor:pointer">&times;</span>
-                </div>
-                <code>user@test.com</code> / <code>user1234</code>
+              <div id="userCredentials" class="mb-3 p-3 border rounded bg-light" style="display: none;">
+                <code>user@test.com</code> / <code>User1234</code>
               </div>
 
               <div class="text-center mt-3">
@@ -77,32 +51,14 @@
                 <a href="#register" class="small fw-bold text-dark text-decoration-none">Register here</a>
               </div>
             </form>
-
           </div>
         </div>
-        </div>
+      </div>
     </div>
   </div>
 </section>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.17.0/jquery.validate.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/toastr@2.1.4/build/toastr.min.js"></script>
-
-<script src="utils/constants.js"></script>
-<script src="services/user-service.js"></script>
-<script src="assets/js/login.js"></script>
-
 <script>
-  UserService.init();
-  
-  // Funkcije za demo kartice koje si imala
-  function toggleAdminCredentials() { document.getElementById('adminCredentials').style.display = 'block'; }
-  function hideAdminCreds() { document.getElementById('adminCredentials').style.display = 'none'; }
-  function toggleUserCredentials() { document.getElementById('userCredentials').style.display = 'block'; }
-  function hideUserCreds() { document.getElementById('userCredentials').style.display = 'none'; }
-</script>
 
-</body>
-</html>
+  UserService.init();
+</script>

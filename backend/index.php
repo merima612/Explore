@@ -22,13 +22,12 @@ require_once __DIR__ . '/rest/services/DestinationService.php';
 require_once __DIR__ . '/rest/services/ReviewService.php';
 require_once __DIR__ . '/middleware/AuthMiddleware.php';
 require_once __DIR__ . '/data/roles.php';
-
 header('Access-Control-Allow-Origin: *');
 header('Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS');
-header('Access-Control-Allow-Headers: Content-Type, Authorization, X-Requested-With');
+header('Access-Control-Allow-Headers: Origin, Content-Type, X-Auth-Token, Authorization');
 
 if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
-    exit;
+    exit; 
 }
 use Firebase\JWT\JWT;
 use Firebase\JWT\Key;
@@ -57,6 +56,7 @@ Flight::register('destinationService', 'DestinationService');
 Flight::register('reviewService', 'ReviewService');
 Flight::register('auth_service', "AuthService");
 Flight::register('auth_middleware', "AuthMiddleware");
+/*
 Flight::route('/*', function() {
     $url = Flight::request()->url;
 
@@ -76,7 +76,7 @@ Flight::route('/*', function() {
             Flight::halt(401, $e->getMessage());
         }
     }
-});
+});*/
 
 require_once __DIR__ . '/rest/routes/AuthRoutes.php';
 require_once __DIR__ . '/rest/routes/UserRoutes.php';

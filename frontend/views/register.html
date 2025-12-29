@@ -11,7 +11,7 @@
 
             <form id="registerForm">
               <div class="form-floating mb-3">
-                <input class="form-control border-0 bg-light" id="registerName" name="name" type="text" placeholder="Your name" required />
+                <input class="form-control border-0 bg-light" id="registerName" name="name" type="text" placeholder="Your name" minlength="3" required />
                 <label for="registerName" class="text-muted">Full name</label>
               </div>
 
@@ -21,12 +21,12 @@
               </div>
 
               <div class="form-floating mb-3">
-                <input class="form-control border-0 bg-light" id="registerPassword" name="password" type="password" placeholder="Password" required />
+                <input class="form-control border-0 bg-light" id="registerPassword" name="password" type="password" placeholder="Password" minlength="8" required />
                 <label for="registerPassword" class="text-muted">Password</label>
               </div>
 
               <div class="form-floating mb-4">
-                <input class="form-control border-0 bg-light" id="confirmPassword" name="confirmPassword" type="password" placeholder="Confirm Password" required />
+                <input class="form-control border-0 bg-light" id="confirmPassword" name="confirmPassword" type="password" placeholder="Confirm Password" minlength="8" required />
                 <label for="confirmPassword" class="text-muted">Confirm Password</label>
               </div>
 

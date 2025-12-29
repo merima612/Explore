@@ -11,6 +11,15 @@ $(document).ready(function () {
     });
 
     app.route({
+        view: "list",
+        load: "list.html",
+        onSectionShow: function() {
+        console.log("KLIKNUT JE LIST! Pokrećem getUsers..."); // Ovo MORA izaći u konzoli
+        UserService.getAllUsers(); 
+    }
+});
+
+    app.route({
         view: "about",
         load: "about.html"
     });
@@ -94,14 +103,7 @@ $(document).ready(function () {
         view: "home1",
         load: "home1.html"
     });
-    app.route({
-    view: 'users', 
-    load: 'list.html', 
-    onCreate: function() { },
-    onSectionSelected: function() {
-        UserService.listUsers();
-    }
-});
 
     app.run();
+
 });

@@ -11212,3 +11212,15 @@ footer {
     opacity: 0;
   }
 }
+
+label.error {
+    color: #e74c3c; 
+    font-size: 0.85rem;
+    margin-top: 5px;
+    display: block;
+    width: 100%;
+}
+
+input.error {
+    border: 1px solid #e74c3c !important;
+}
